@@ -5,11 +5,14 @@ from bot.handlers import *
 import asyncio
 
 # Initialize bot
+Client.UPDATES_WORKERS = 343
+Client.DOWNLOAD_WORKERS = 343
 app = Client(
     "Bot",
     bot_token=CONFIG.BOT_TOKEN,
     api_id=CONFIG.API_ID,
     api_hash=CONFIG.API_HASH,
+    workers=343,
     workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR),
     plugins=dict(root="bot/handlers")
 )
