@@ -28,7 +28,7 @@ async def func(client : Client, message: Message):
         except:
             pass
         return
-        
+    await asyncio_sleep(15)   
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
@@ -41,7 +41,7 @@ async def func(client : Client, message: Message):
 
     link = " ".join(args[1:])
     LOGGER.debug(f'Leeching : {link}')
-
+    LOGGER.info(f'Leeching : {link}')
     try:
         download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
@@ -124,6 +124,7 @@ async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, pre
                     gid = download.gid
                 )
                 if text != previous_text:
+                    await asyncio_sleep(5)
                     await message.edit(
                         text,
                         reply_markup=
@@ -138,8 +139,10 @@ async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, pre
                 await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
                 return await progress_dl(message, aria2_api, gid, text)
             else:
+                await asyncio_sleep(5)
                 await message.edit(download.error_message)
         else:
+            await asyncio_sleep(5)
             await message.edit(
                 LOCAL.ARIA2_DOWNLOAD_SUCCESS.format(
                     name=download.name
