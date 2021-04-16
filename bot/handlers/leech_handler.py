@@ -25,6 +25,7 @@ from bot.handlers import cancel_leech_handler
 
 @Client.on_message(Filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
+    link = None
     args = message.text.split(" ")
     LOGGER.info(args) 
     if len(args) <= 1:        
@@ -61,7 +62,7 @@ async def func(client : Client, message: Message):
             info = page.find('a', {'aria-label': 'Download file'})
             link = info.get('href')
         except:
-            pass
+            LOGGER.info("error")
     else:
         link = urls
     try:
