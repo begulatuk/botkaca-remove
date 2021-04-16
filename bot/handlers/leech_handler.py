@@ -52,7 +52,7 @@ async def func(client : Client, message: Message):
     LOGGER.info(f'Leeching : {urls}')
     if 'mediafire.com' in urls:
         url = re.findall(r'\bhttps?://.*mediafire\.com\S+', urls)[0]
-        page = BeautifulSoup(requests.get(url).content, 'lxml')
+        page = BeautifulSoup(requests.get(url).content, 'html.parser')
         info = page.find('a', {'aria-label': 'Download file'})
         link = info.get('href')
         
