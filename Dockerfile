@@ -23,7 +23,7 @@ RUN apk --no-cache -q add \
     python3 libffi \
     aria2 \
     ffmpeg
-
+RUN pip3 install -q lxml
 COPY --from=prepare_env /app/venv venv
 COPY bot bot
 
