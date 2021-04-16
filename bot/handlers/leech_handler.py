@@ -2,11 +2,15 @@
 # getting track for logging
 
 import logging
+import re
+import urllib.parse
+import aiohttp
 
 LOGGER = logging.getLogger(__name__)
 
 # GOAL:
 # create /leech handler
+from bs4 import BeautifulSoup
 
 from re import match as re_match
 from asyncio import sleep as asyncio_sleep
@@ -22,13 +26,14 @@ from bot.handlers import cancel_leech_handler
 @Client.on_message(Filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
     args = message.text.split(" ")
+    LOGGER.info(args) 
     if len(args) <= 1:        
         try:
             await message.delete()
         except:
             pass
         return
-       
+         
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     await asyncio_sleep(5)
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
@@ -41,23 +46,22 @@ async def func(client : Client, message: Message):
     await asyncio_sleep(5)
     await aria2_api.start()
     
-
-    LOGGER.info(args) 
-    if 'mediafire.com' in args:
-        await aio.sleep(2)
+    link = " ".join(args[1:])      
+    LOGGER.debug(f'Leeching : {link}')
+    LOGGER.info(f'Leeching : {link}')
+    if 'mediafire.com' in link:
+        await reply.edit_text("`Generating mediafire link.`")
+        await asyncio_sleep(2)
         try:
-            url = re.findall(r'\bhttps?://.*mediafire\.com\S+', args)[0]
-            page = BeautifulSoup(requests.get(url).content, 'lxml')
+            url = re.findall(r'\bhttps?://.*mediafire\.com\S+', link)[0]
+            async with aiohttp.ClientSession() as sess:
+                resp = await sess.get(url)
+                restext = await resp.text()
+            page = BeautifulSoup(restext, 'lxml')
             info = page.find('a', {'aria-label': 'Download file'})
-            url = info.get('href')
-            link = " ".join(url[1:])            
+            link = info.get('href')
         except:
-            await reply.edit_text("Mediafire Error")
-    else:
-        link = " ".join(args[1:])      
-        LOGGER.debug(f'Leeching : {link}')
-        LOGGER.info(f'Leeching : {link}')        
-        
+            pass
                                                  
     try:
         download = aria2_api.add_uris([link], options={
