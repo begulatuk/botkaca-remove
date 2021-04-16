@@ -21,7 +21,7 @@ ENV PATH="/app/venv/bin:$PATH" VIRTUAL_ENV="/app/venv"
 
 RUN apk --no-cache -q add \
     python3 libffi \
-    aria2 \
+    aria2 py3-pip \
     ffmpeg
 RUN pip3 install -q lxml
 COPY --from=prepare_env /app/venv venv
