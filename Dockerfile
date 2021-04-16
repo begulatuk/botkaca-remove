@@ -2,10 +2,9 @@ FROM alpine:latest as prepare_env
 WORKDIR /app
 
 RUN apk --no-cache -q add \
-    python3 python3-dev py3-pip libffi libffi-dev musl-dev gcc
-RUN apk add -qq --no-cache --virtual .build-deps \
-    build-base zlib-dev jpeg-dev  \
-    libffi-dev libxml2-dev libxslt-dev && \    
+    python3 python3-dev py3-pip libffi libffi-dev musl-dev gcc \
+    build-base zlib-dev jpeg-dev libxml2-dev libxslt-dev
+
 RUN pip3 install -q --ignore-installed distlib pipenv
 RUN python3 -m venv /app/venv
 
