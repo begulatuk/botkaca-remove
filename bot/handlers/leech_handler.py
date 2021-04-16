@@ -40,11 +40,25 @@ async def func(client : Client, message: Message):
     aria2_api = STATUS.ARIA2_API
     await asyncio_sleep(5)
     await aria2_api.start()
+    
 
-    link = " ".join(args[1:])
-    LOGGER.debug(f'Leeching : {link}')
-    LOGGER.info(f'Leeching : {link}')
-    LOGGER.info(args)
+    LOGGER.info(args) 
+    if 'mediafire.com' in args:
+        await aio.sleep(2)
+        try:
+            url = re.findall(r'\bhttps?://.*mediafire\.com\S+', args)[0]
+            page = BeautifulSoup(requests.get(url).content, 'lxml')
+            info = page.find('a', {'aria-label': 'Download file'})
+            url = info.get('href')
+            link = " ".join(url[1:])            
+        except:
+            await reply.edit_text("Mediafire Error")
+    else:
+        link = " ".join(args[1:])      
+        LOGGER.debug(f'Leeching : {link}')
+        LOGGER.info(f'Leeching : {link}')        
+        
+                                                 
     try:
         download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
