@@ -46,14 +46,14 @@ async def func(client : Client, message: Message):
     await asyncio_sleep(5)
     await aria2_api.start()
     
-    link = " ".join(args[1:])      
-    LOGGER.debug(f'Leeching : {link}')
-    LOGGER.info(f'Leeching : {link}')
-    if 'mediafire.com' in link:
+    urls = " ".join(args[1:])      
+    LOGGER.debug(f'Leeching : {urls}')
+    LOGGER.info(f'Leeching : {urls}')
+    if 'mediafire.com' in urls:
         await reply.edit_text("`Generating mediafire link.`")
         await asyncio_sleep(2)
         try:
-            url = re.findall(r'\bhttps?://.*mediafire\.com\S+', link)[0]
+            url = re.findall(r'\bhttps?://.*mediafire\.com\S+', urls)[0]
             async with aiohttp.ClientSession() as sess:
                 resp = await sess.get(url)
                 restext = await resp.text()
@@ -62,7 +62,8 @@ async def func(client : Client, message: Message):
             link = info.get('href')
         except:
             pass
-                                                 
+    else:
+        link = urls
     try:
         download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
