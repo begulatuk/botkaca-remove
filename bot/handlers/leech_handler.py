@@ -28,8 +28,9 @@ async def func(client : Client, message: Message):
         except:
             pass
         return
-    await asyncio_sleep(15)   
+       
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
+    await asyncio_sleep(5)
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
         config={
@@ -37,11 +38,13 @@ async def func(client : Client, message: Message):
         }
     )
     aria2_api = STATUS.ARIA2_API
+    await asyncio_sleep(5)
     await aria2_api.start()
 
     link = " ".join(args[1:])
     LOGGER.debug(f'Leeching : {link}')
     LOGGER.info(f'Leeching : {link}')
+    LOGGER.info(args)
     try:
         download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
@@ -64,6 +67,7 @@ async def func(client : Client, message: Message):
         download = aria2_api.get_download(download.gid)
         if not download.followed_by_ids:
             download.remove(force=True)
+            await asyncio_sleep(5)
             await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         else:
             gids = download.followed_by_ids
@@ -72,6 +76,7 @@ async def func(client : Client, message: Message):
                 if await progress_dl(reply, aria2_api, gid):
                     download = aria2_api.get_download(gid)
                     download.remove(force=True)
+                    await asyncio_sleep(5)
                     await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         try:
             await reply.delete()
