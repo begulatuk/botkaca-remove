@@ -25,7 +25,6 @@ from bot.handlers import cancel_leech_handler
 
 @Client.on_message(Filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
-    link = None
     args = message.text.split(" ")
     LOGGER.info(args) 
     if len(args) <= 1:        
@@ -51,18 +50,11 @@ async def func(client : Client, message: Message):
     LOGGER.debug(f'Leeching : {urls}')
     LOGGER.info(f'Leeching : {urls}')
     if 'mediafire.com' in urls:
-        await reply.edit_text("`Generating mediafire link.`")
-        await asyncio_sleep(2)
-        try:
-            url = re.findall(r'\bhttps?://.*mediafire\.com\S+', urls)[0]
-            async with aiohttp.ClientSession() as sess:
-                resp = await sess.get(url)
-                restext = await resp.text()
-            page = BeautifulSoup(restext, 'lxml')
-            info = page.find('a', {'aria-label': 'Download file'})
-            link = info.get('href')
-        except:
-            LOGGER.info("error")
+        url = re.findall(r'\bhttps?://.*mediafire\.com\S+', urls)[0]
+        page = BeautifulSoup(requests.get(url).content, 'lxml')
+        info = page.find('a', {'aria-label': 'Download file'})
+        link = info.get('href')
+        
     else:
         link = urls
     try:
