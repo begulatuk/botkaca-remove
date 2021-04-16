@@ -18,6 +18,9 @@ RUN apk update -q && apk --no-cache -q add \
     rm glibc-2.32-r0.apk && \
     rm -r /var/cache/apk/APKINDEX.* && \
     rm -rf /tmp/* /var/cache/apk/* /var/tmp/*
+
+
+COPY requirements.txt .
 RUN pip3 install -q -r requirements.txt
 COPY . .
 CMD ["python3", "-m", "bot"]
