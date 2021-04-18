@@ -31,11 +31,7 @@ async def func(client : Client, message: Message):
     name_args = message.text.split("|")
     LOGGER.info(args)
     LOGGER.info(name_args)    
-    name = name_args[1]
-    #name = " ".join(name[1:])
-    LOGGER.info(name)
-    LOGGER.info(name_args[0])
-    
+  
     
     if len(args) <= 1:        
         try:
@@ -43,7 +39,15 @@ async def func(client : Client, message: Message):
         except:
             pass
         return
-         
+    elif len(name_args) == 2:
+        try:
+            name = name_args[1]
+            LOGGER.info(name)
+            LOGGER.info(name_args[0])
+        except:
+            pass
+        return
+            
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     await asyncio_sleep(5)
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
