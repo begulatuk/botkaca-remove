@@ -4,7 +4,7 @@
 import logging
 import re
 import urllib.parse
-import aiohttp
+#import aiohttp
 import requests
 
 LOGGER = logging.getLogger(__name__)
