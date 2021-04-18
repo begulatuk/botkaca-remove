@@ -31,9 +31,11 @@ async def func(client : Client, message: Message):
     name_args = message.text.split("|")
     LOGGER.info(args)
     LOGGER.info(name_args)    
-    name = name_args[2:]
+    name = name_args[2]
     #name = " ".join(name[1:])
     LOGGER.info(name)
+    LOGGER.info(name_args[1])
+    
     
     if len(args) <= 1:        
         try:
