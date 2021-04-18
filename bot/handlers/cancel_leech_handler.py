@@ -7,12 +7,13 @@ LOGGER = logging.getLogger(__name__)
 
 # GOAL:
 # create /cancel handler
-
-from pyrogram import Client, Message, Filters, CallbackQuery
+from pyrogram import Client, filters, CallbackQuery 
+from pyrogram.types import Message
+#from pyrogram import Client, Message, Filters
 from bot import LOCAL, CONFIG, STATUS, COMMAND
 from typing import Union
 
-@Client.on_message(Filters.command(COMMAND.CANCEL_LEECH))
+@Client.on_message(filters.command(COMMAND.CANCEL_LEECH))
 async def func(client : Client, data : Union[Message, CallbackQuery]):
     gid = ""
     update_fn = None
