@@ -47,7 +47,7 @@ async def func(client : Client, message: Message):
             LOGGER.info(name_args[0])
         except:
             pass
-        return
+        #return
             
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     await asyncio_sleep(5)
