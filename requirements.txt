@@ -1,6 +1,6 @@
-https://github.com/Mrvishal2k2/pyrogram-old/archive/asyncio-dev.zip
+Pyrogram
 tgcrypto
 aria2p
-beautifulsoup4>=4.8.2,<4.8.10
-aiohttp
-lxml
+beautifulsoup4
+#aiohttp
+#lxml
