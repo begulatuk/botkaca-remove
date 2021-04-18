@@ -43,8 +43,9 @@ async def func(client : Client, message: Message):
     elif len(name_args) == 2:
         try:
             name = name_args[1]
+            name = name.strip()
             LOGGER.info(name)
-            LOGGER.info(name_args[0])
+            #LOGGER.info(name_args[0])
         except:
             pass
         #return
