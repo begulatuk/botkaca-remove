@@ -30,7 +30,8 @@ async def func(client : Client, message: Message):
     args = message.text.split(" ")
     name_args = message.text.split("|")
     LOGGER.info(args)
-    LOGGER.info(name_args)    
+    LOGGER.info(name_args)
+    name = None
   
     
     if len(args) <= 1:        
