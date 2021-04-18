@@ -4,7 +4,7 @@ from pyrogram.types import Message
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from bot import CONFIG, COMMAND, LOCAL, LOGGER, STATUS
 from bot.handlers import *
-#import asyncio
+import asyncio
 
 # Initialize bot
 Client.UPDATES_WORKERS = 32
