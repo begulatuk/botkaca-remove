@@ -17,17 +17,21 @@ from re import match as re_match
 from asyncio import sleep as asyncio_sleep
 from os.path import join as os_path_join
 from math import floor
-from pyrogram import Client, Message, Filters, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import Client, filters 
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aria2p.downloads import Download, File
 from bot import LOCAL, STATUS, CONFIG, COMMAND
 from bot.plugins import aria2, zipfile
 from bot.handlers import upload_to_tg_handler
 from bot.handlers import cancel_leech_handler
 
-@Client.on_message(Filters.command(COMMAND.LEECH))
+@Client.on_message(filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
     args = message.text.split(" ")
-    LOGGER.info(args) 
+    name_args = message.text.split("|")
+    name = None
+    LOGGER.info(args)
+    LOGGER.info(name_args) 
     if len(args) <= 1:        
         try:
             await message.delete()
@@ -59,7 +63,7 @@ async def func(client : Client, message: Message):
     else:
         link = urls
     try:
-        download = aria2_api.add_uris([link], options={
+        download = aria2_api.add_uris([link], ,[name], options={
             'continue_downloads' : True,
             'bt_tracker' : STATUS.DEFAULT_TRACKER
         })
