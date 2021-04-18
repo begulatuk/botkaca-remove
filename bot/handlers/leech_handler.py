@@ -29,14 +29,12 @@ from bot.handlers import cancel_leech_handler
 async def func(client : Client, message: Message):
     args = message.text.split(" ")
     name_args = message.text.split("|")
-    try:
-        name = name_args[1]
-        name = name.strip()
-    except:
-        LOGGER.info(args)
-        LOGGER.info(name_args)
-        LOGGER.info(name)
-        name = ''
+    name = name_args[1]
+    name = name.strip()
+    LOGGER.info(args)
+    LOGGER.info(name_args)
+    LOGGER.info(name)
+    
     if len(args) <= 1:        
         try:
             await message.delete()
