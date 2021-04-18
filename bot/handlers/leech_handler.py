@@ -51,7 +51,7 @@ async def func(client : Client, message: Message):
         #return
             
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
-    await asyncio_sleep(5)
+    await asyncio_sleep(2)
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
         config={
@@ -78,7 +78,7 @@ async def func(client : Client, message: Message):
         download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
             'bt_tracker' : STATUS.DEFAULT_TRACKER
-        }, [name])
+        }, name)
     except Exception as e:
         if "No URI" in str(e):
             await reply.edit_text(
