@@ -29,10 +29,10 @@ from bot.handlers import cancel_leech_handler
 async def func(client : Client, message: Message):
     args = message.text.split(" ")
     name_args = message.text.split("|")
-    name = name_args[1]
-    name = name.strip()
     LOGGER.info(args)
-    LOGGER.info(name_args)
+    LOGGER.info(name_args)    
+    name = name_args[2:]
+    name = name.strip()
     LOGGER.info(name)
     
     if len(args) <= 1:        
