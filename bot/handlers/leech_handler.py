@@ -32,7 +32,7 @@ async def func(client : Client, message: Message):
     LOGGER.info(args)
     LOGGER.info(name_args)    
     name = name_args[2:]
-    name = name.strip()
+    #name = " ".join(name[1:])
     LOGGER.info(name)
     
     if len(args) <= 1:        
