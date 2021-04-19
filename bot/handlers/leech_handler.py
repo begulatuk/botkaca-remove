@@ -28,7 +28,8 @@ from bot.handlers import cancel_leech_handler
 @Client.on_message(filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
     name_args = message.text.split("|")
-    args = name_args[0].split(" ")
+    args_1 = name_args[0].split(" ")
+    args = args_1[1:]
     #args = 
     #name_args = message.text.split("|")
     LOGGER.info(args)
@@ -65,9 +66,8 @@ async def func(client : Client, message: Message):
     aria2_api = STATUS.ARIA2_API
     await asyncio_sleep(5)
     await aria2_api.start()
-    
     #urls = " ".join(args[1:])      
-    urls = args[1:].strip()
+    urls = args.replace(" ", "")
     LOGGER.debug(f'Leeching : {urls}')
     LOGGER.info(f'Leeching : {urls}')
     if 'mediafire.com' in urls:
