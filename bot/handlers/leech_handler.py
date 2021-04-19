@@ -81,7 +81,8 @@ async def func(client : Client, message: Message):
     try:
         download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
-            'bt_tracker' : STATUS.DEFAULT_TRACKER
+            'bt_tracker' : STATUS.DEFAULT_TRACKER,
+            'out': name
         })
     except Exception as e:
         if "No URI" in str(e):
