@@ -79,7 +79,7 @@ async def func(client : Client, message: Message):
     else:
         link = urls
     try:
-        download = aria2_api.add_uris([link], options={
+        download, cf_name = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
             'bt_tracker' : STATUS.DEFAULT_TRACKER
         })
@@ -95,13 +95,13 @@ async def func(client : Client, message: Message):
                 str(e)
             )
             return
-    if name:
-        try:
-            rename_path = os.path.join(download_dir, name)
-            os.rename(filepath, rename_path)
-            #download.name = rename_path
-        except:
-            LOGGER.info("error")
+    #if name:
+    #    try:
+    #        rename_path = os.path.join(download_dir, name)
+    #        os.rename(filepath, rename_path)
+    #        #download.name = rename_path
+    #    except:
+    #        LOGGER.info("error")
     #path =  aria2_api.get_download(download.gid)
     #LOGGER.info(f'path : {path}')
     LOGGER.info(f'download : {download}')
