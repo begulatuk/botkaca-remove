@@ -27,8 +27,10 @@ from bot.handlers import cancel_leech_handler
 
 @Client.on_message(filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
-    args = message.text.split(" ")
     name_args = message.text.split("|")
+    args = name_args[0].split(" ")
+    
+    #name_args = message.text.split("|")
     LOGGER.info(args)
     #LOGGER.info(name_args)
     name = None
