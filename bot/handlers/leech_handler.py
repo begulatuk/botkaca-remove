@@ -79,7 +79,7 @@ async def func(client : Client, message: Message):
     else:
         link = urls
     try:
-        download, cf_name = aria2_api.add_uris([link], options={
+        download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
             'bt_tracker' : STATUS.DEFAULT_TRACKER
         })
