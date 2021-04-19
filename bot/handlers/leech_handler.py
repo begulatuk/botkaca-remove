@@ -92,8 +92,15 @@ async def func(client : Client, message: Message):
                 str(e)
             )
             return
-    path =  aria2_api.get_download(download.gid)
-    LOGGER.info(f'path : {path}')
+    if name:
+        try:
+            #rename = name
+            os.rename(download.name, name)
+            #download.name = rename_path
+        except:
+            LOGGER.info("error")
+    #path =  aria2_api.get_download(download.gid)
+    #LOGGER.info(f'path : {path}')
     LOGGER.info(f'download : {download}')
     LOGGER.info(f'download_name : {download.name}')
 
