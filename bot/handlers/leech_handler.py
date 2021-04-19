@@ -97,8 +97,8 @@ async def func(client : Client, message: Message):
             return
     if name:
         try:
-            #rename = name
-            os.rename(download.name, name)
+            rename_path = os.path.join(download_dir, name)
+            os.rename(filepath, rename_path)
             #download.name = rename_path
         except:
             LOGGER.info("error")
