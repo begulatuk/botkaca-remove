@@ -7,14 +7,14 @@ from bot.handlers import *
 import asyncio
 
 # Initialize bot
-Client.UPDATES_WORKERS = 32
-Client.DOWNLOAD_WORKERS = 32
+Client.UPDATES_WORKERS = 100
+Client.DOWNLOAD_WORKERS = 100
 app = Client(
-    ":memory:",
+    "botkaca",
     bot_token=CONFIG.BOT_TOKEN,
     api_id=CONFIG.API_ID,
     api_hash=CONFIG.API_HASH,
-    workers=32,
+    workers=100,
     workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR),
     plugins=dict(root="bot/handlers")
 )
@@ -47,7 +47,7 @@ if CONFIG.BOT_PASSWORD:
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.create_task(app.run())
+    loop.create_task(app.start())
     try:
         loop.run_forever()
     except (KeyboardInterrupt, SystemExit):
