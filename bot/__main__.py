@@ -46,11 +46,11 @@ if CONFIG.BOT_PASSWORD:
     )
 
 if __name__ == '__main__':
-    app.start()
-    loop = asyncio.get_event_loop()
-    loop.create_task()
-    try:
-        loop.run_forever()
-    except (KeyboardInterrupt, SystemExit):
-        loop.run_until_complete(app.stop())
-        loop.close()
+    app.run()
+    #loop = asyncio.get_event_loop()
+    #loop.create_task()
+    #try:
+    #    loop.run_forever()
+    #except (KeyboardInterrupt, SystemExit):
+    #    loop.run_until_complete(app.stop())
+    #    loop.close()
