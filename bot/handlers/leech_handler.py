@@ -64,7 +64,7 @@ async def func(client : Client, message: Message):
         }
     )
     aria2_api = STATUS.ARIA2_API
-    await asyncio_sleep(5)
+    await asyncio_sleep(1)
     await aria2_api.start()
     #urls = " ".join(args[1:])      
     urls = args.replace(" ", "")
@@ -123,7 +123,7 @@ async def func(client : Client, message: Message):
                 if await progress_dl(reply, aria2_api, gid):
                     download = aria2_api.get_download(gid)
                     download.remove(force=True)
-                    await asyncio_sleep(5)
+                    await asyncio_sleep(2)
                     await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         try:
             await reply.delete()
@@ -180,7 +180,7 @@ async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, pre
                     gid = download.gid
                 )
                 if text != previous_text:
-                    await asyncio_sleep(5)
+                    await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
                     await message.edit(
                         text,
                         reply_markup=
@@ -198,12 +198,13 @@ async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, pre
                 await asyncio_sleep(2)
                 await message.edit(download.error_message)
         else:
-            await asyncio_sleep(2)
+            await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
             await message.edit(
                 LOCAL.ARIA2_DOWNLOAD_SUCCESS.format(
                     name=download.name
                 )
             )
+            await asyncio_sleep(5)
             return True
     except Exception as e:
         if " not found" in str(e) or "'file'" in str(e):
