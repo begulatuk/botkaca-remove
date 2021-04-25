@@ -2,7 +2,7 @@
 # getting track for logging
 
 import logging
-
+from asyncio import sleep as asyncio_sleep
 LOGGER = logging.getLogger(__name__)
 
 # GOAL:
@@ -19,7 +19,7 @@ from bot.plugins import formater, split, thumbnail_video, ffprobe
 async def func(filepath: str, client: Client,  message: Message, delete=False):
     if not os_path.exists(filepath):
         LOGGER.error(f'File not found : {filepath}')
-        await asyncio.sleep(10)
+        await asyncio_sleep(10)
         await message.edit_text(
             LOCAL.UPLOAD_FAILED_FILE_MISSING.format(
                 name = os_path.basename(filepath)
@@ -30,7 +30,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     if os_path.isdir(filepath):
         ls = os_lisdir(filepath)
         async for filepath in ls:
-            await asyncio.sleep(10)
+            await asyncio_sleep(10)
             await message.edit(
                 LOCAL.UPLOADING_FILE.format(
                     name = os_path.basename(filepath)
@@ -61,7 +61,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
             width = int(video_stream['width'] if 'width' in video_stream else 0)
             height = int(video_stream['height'] if 'height' in video_stream else 0)
 
-            await asyncio.sleep(5)
+            await asyncio_sleep(5)
             await message.edit(
                 LOCAL.GENERATE_THUMBNAIL.format(
                     name = file.name
@@ -71,7 +71,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
             use_default_thumbnail = os_path.exists(thumbnail)
             if not use_default_thumbnail:
                 thumbnail = await thumbnail_video.func(file.path)
-            await asyncio.sleep(5)    
+            await asyncio_sleep(2)    
             await client.send_video(
                 chat_id,
                 file, 
@@ -89,7 +89,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     
     if os_path.getsize(filepath) > int(CONFIG.UPLOAD_MAX_SIZE):
         LOGGER.debug(f'File too large : {filepath}')
-        await asyncio.sleep(10)
+        await asyncio_sleep(10)
         await message.edit_text(
             LOCAL.SPLIT_FILE.format(
                 name = os_path.basename(filepath)
@@ -97,7 +97,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
         )
 
     async for file in split.func(filepath, int(CONFIG.UPLOAD_MAX_SIZE)):
-        await asyncio.sleep(5)
+        await asyncio_sleep(10)
         await message.edit(
             LOCAL.UPLOADING_FILE.format(
                 name = file.name
@@ -110,7 +110,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
             "last_update" : 0,
             "prev_text" : ""
         }
-        await asyncio.sleep(5)
+        await asyncio_sleep(2)
         await upload_fn(
             message.chat.id,
             file,
