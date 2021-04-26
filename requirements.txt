@@ -4,3 +4,4 @@ aria2p
 beautifulsoup4
 #aiohttp
 #lxml
+js2py
