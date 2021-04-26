@@ -72,7 +72,7 @@ async def func(client : Client, message: Message):
     #urls = " ".join(args[1:])      
     text_url = args.replace(" ", "")
     LOGGER.debug(f'Leeching : {text_url}')
-    LOGGER.info(f'Leeching : {text_url}')
+    #LOGGER.info(f'Leeching : {text_url}')
     if "zippyshare.com" in text_url \
         or "osdn.net" in text_url \
         or "mediafire.com" in text_url \
@@ -83,14 +83,16 @@ async def func(client : Client, message: Message):
         or "racaty.net" in text_url:
             try:
                 urisitring = direct_link_generator(text_url)
+                LOGGER.info(urisitring)
                 link = [urisitring]
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e}')
         
     else:
-        link = text_url
+        link = [text_url]
     try:
-        download = aria2_api.add_uris([link], options={
+        LOGGER.info(link)
+        download = aria2_api.add_uris(link, options={
             'continue_downloads' : True,
             'bt_tracker' : STATUS.DEFAULT_TRACKER,
             'out': name
