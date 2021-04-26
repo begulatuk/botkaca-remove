@@ -20,32 +20,32 @@ from bs4 import BeautifulSoup
 from bot.handlers.exceptions import DirectDownloadLinkException
 
 
-def direct_link_generator(urls: str):
+def direct_link_generator(text_url: str):
     """ direct links generator """
-    if not urls:
+    if not text_url:
         raise DirectDownloadLinkException("`No links found!`")
-    elif 'zippyshare.com' in urls:
-        return zippy_share(urls)
-    elif 'yadi.sk' in urls:
-        return yandex_disk(urls)
-    elif 'cloud.mail.ru' in urls:
-        return cm_ru(urls)
-    elif 'mediafire.com' in urls:
-        return mediafire(urls)
-    elif 'osdn.net' in urls:
-        return osdn(urls)
-    elif 'github.com' in urls:
-        return github(urls)
-    elif 'racaty.net' in urls:
-        return racaty(urls)
+    elif 'zippyshare.com' in text_url:
+        return zippy_share(text_url)
+    elif 'yadi.sk' in text_url:
+        return yandex_disk(text_url)
+    elif 'cloud.mail.ru' in text_url:
+        return cm_ru(text_url)
+    elif 'mediafire.com' in text_url:
+        return mediafire(text_url)
+    elif 'osdn.net' in text_url:
+        return osdn(text_url)
+    elif 'github.com' in text_url:
+        return github(text_url)
+    elif 'racaty.net' in text_url:
+        return racaty(text_url)
     else:
-        raise DirectDownloadLinkException(f'No Direct link function found for {urls}')
+        raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
 
 def zippy_share(url: str) -> str:
     link = re.findall("https:/.(.*?).zippyshare", url)[0]
     response_content = (requests.get(url)).content
-    bs_obj = BeautifulSoup(response_content, "html.parser")
+    bs_obj = BeautifulSoup(response_content, "lxml")
 
     try:
         js_script = bs_obj.find("div", {"class": "center",}).find_all(
@@ -108,7 +108,7 @@ def mediafire(url: str) -> str:
         text_url = re.findall(r'\bhttps?://.*mediafire\.com\S+', url)[0]
     except IndexError:
         raise DirectDownloadLinkException("`No MediaFire links found`\n")
-    page = BeautifulSoup(requests.get(text_url).content, 'html.parser')
+    page = BeautifulSoup(requests.get(text_url).content, 'lxml')
     info = page.find('a', {'aria-label': 'Download file'})
     dl_url = info.get('href')
     return dl_url
@@ -122,7 +122,7 @@ def osdn(url: str) -> str:
     except IndexError:
         raise DirectDownloadLinkException("`No OSDN links found`\n")
     page = BeautifulSoup(
-        requests.get(text_url, allow_redirects=True).content, 'html.parser')
+        requests.get(text_url, allow_redirects=True).content, 'lxml')
     info = page.find('a', {'class': 'mirror_link'})
     text_url = urllib.parse.unquote(osdn_link + info['href'])
     mirrors = page.find('form', {'id': 'mirror-select-form'}).findAll('tr')
@@ -155,7 +155,7 @@ def useragent():
         requests.get(
             'https://developers.whatismybrowser.com/'
             'useragents/explore/operating_system_name/android/').content,
-        'html.parser').findAll('td', {'class': 'useragent'})
+        'lxml').findAll('td', {'class': 'useragent'})
     user_agent = choice(useragents)
     return user_agent.text
 
