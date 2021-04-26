@@ -28,7 +28,7 @@ def direct_link_generator(urls: str):
         return zippy_share(urls)
     elif 'yadi.sk' in urls:
         return yandex_disk(urls)
-    elif 'cloud.mail.ru' in text_url:
+    elif 'cloud.mail.ru' in urls:
         return cm_ru(urls)
     elif 'mediafire.com' in urls:
         return mediafire(urls)
