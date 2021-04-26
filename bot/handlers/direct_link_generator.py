@@ -7,10 +7,13 @@
 from https://github.com/AvinashReddy3108/PaperplaneExtended . I hereby take no credit of the following code other
 than the modifications. See https://github.com/AvinashReddy3108/PaperplaneExtended/commits/master/userbot/modules/direct_links.py
 for original authorship. """
-
+import logging
 import json
 import re
 import urllib.parse
+
+LOGGER = logging.getLogger(__name__)
+
 from os import popen
 from random import choice
 from js2py import EvalJs
@@ -25,6 +28,7 @@ def direct_link_generator(text_url: str):
     if not text_url:
         raise DirectDownloadLinkException("`No links found!`")
     elif 'zippyshare.com' in text_url:
+        LOGGER.info(text_url)
         return zippy_share(text_url)
     elif 'yadi.sk' in text_url:
         return yandex_disk(text_url)
@@ -44,6 +48,8 @@ def direct_link_generator(text_url: str):
 
 def zippy_share(url: str) -> str:
     link = re.findall("https:/.(.*?).zippyshare", url)[0]
+    LOGGER.info("DISINI ZIPPY")
+    LOGGER.info(url)
     response_content = (requests.get(url)).content
     bs_obj = BeautifulSoup(response_content, "html.parser")
 
