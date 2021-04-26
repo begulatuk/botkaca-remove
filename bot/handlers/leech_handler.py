@@ -70,25 +70,25 @@ async def func(client : Client, message: Message):
     await asyncio_sleep(1)
     await aria2_api.start()
     #urls = " ".join(args[1:])      
-    urls = args.replace(" ", "")
-    LOGGER.debug(f'Leeching : {urls}')
-    LOGGER.info(f'Leeching : {urls}')
-    if "zippyshare.com" in urls \
-        or "osdn.net" in urls \
-        or "mediafire.com" in urls \
-        or "cloud.mail.ru" in urls \
-        or "cloud.mail.ru" in urls \
-        or "github.com" in urls \
-        or "yadi.sk" in urls  \
-        or "racaty.net" in urls:
+    text_url = args.replace(" ", "")
+    LOGGER.debug(f'Leeching : {text_url}')
+    LOGGER.info(f'Leeching : {text_url}')
+    if "zippyshare.com" in text_url \
+        or "osdn.net" in text_url \
+        or "mediafire.com" in text_url \
+        or "cloud.mail.ru" in text_url \
+        or "cloud.mail.ru" in text_url \
+        or "github.com" in text_url \
+        or "yadi.sk" in text_url  \
+        or "racaty.net" in text_url:
             try:
-                urisitring = direct_link_generator(urls)
+                urisitring = direct_link_generator(text_url)
                 link = [urisitring]
             except DirectDownloadLinkException as e:
-                LOGGER.info(f'{urls}: {e}')
+                LOGGER.info(f'{text_url}: {e}')
         
     else:
-        link = urls
+        link = text_url
     try:
         download = aria2_api.add_uris([link], options={
             'continue_downloads' : True,
