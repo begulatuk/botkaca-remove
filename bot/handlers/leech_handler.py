@@ -24,6 +24,8 @@ from bot import LOCAL, STATUS, CONFIG, COMMAND
 from bot.plugins import aria2, zipfile
 from bot.handlers import upload_to_tg_handler
 from bot.handlers import cancel_leech_handler
+from bot.handlers.exceptions import DirectDownloadLinkException
+from bot.handlers.direct_link_generator import direct_link_generator
 
 @Client.on_message(filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
@@ -71,11 +73,19 @@ async def func(client : Client, message: Message):
     urls = args.replace(" ", "")
     LOGGER.debug(f'Leeching : {urls}')
     LOGGER.info(f'Leeching : {urls}')
-    if 'mediafire.com' in urls:
-        url = re.findall(r'\bhttps?://.*mediafire\.com\S+', urls)[0]
-        page = BeautifulSoup(requests.get(url).content, 'html.parser')
-        info = page.find('a', {'aria-label': 'Download file'})
-        link = info.get('href')
+    if "zippyshare.com" in urls \
+        or "osdn.net" in urls \
+        or "mediafire.com" in urls \
+        or "cloud.mail.ru" in urls \
+        or "cloud.mail.ru" in urls \
+        or "github.com" in urls \
+        or "yadi.sk" in urls  \
+        or "racaty.net" in urls:
+            try:
+                urisitring = direct_link_generator(urls)
+                link = [urisitring]
+            except DirectDownloadLinkException as e:
+                LOGGER.info(f'{urls}: {e}')
         
     else:
         link = urls
