@@ -17,9 +17,9 @@ from bot import LOCAL, CONFIG, STATUS
 from bot.plugins import formater, split, thumbnail_video, ffprobe
 
 async def func(filepath: str, client: Client,  message: Message, delete=False):
-    base_file_name = os.path.dirname(filepath)
-    LOGGER.info(f'21: {base_file_name}')
-    LOGGER.info(f'22: {filepath}')
+    #base_file_name = os.path.dirname(filepath)
+    #LOGGER.info(f'21: {base_file_name}')
+    #LOGGER.info(f'22: {filepath}')
   
         
     if not os_path.exists(filepath):
@@ -50,12 +50,12 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     photo = ['.jpg','.jpeg','.png']
     ext = ['.nfo']
     file_ext = os_path.splitext(filepath)[1].lower()
-    LOGGER.info(f'53: {filepath}')
+    #LOGGER.info(f'53: {filepath}')
     if filepath.endswith(".nfo"):
         os.remove(filepath)
-        return
+        #return
     #LOGGER.info(f'55: {file_ext}')
-    LOGGER.info(f'54: {filepath}')
+    #LOGGER.info(f'54: {filepath}')
     LOGGER.debug(f'Uploading : {filepath}')
 
     if STATUS.UPLOAD_AS_DOC:
