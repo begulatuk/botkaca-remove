@@ -45,11 +45,14 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
         if delete:
             os_rmdir(filepath)
         return
-
+    
     video = ['.mp4','.mkv','.avi','.webm','.wmv','.mov']
     photo = ['.jpg','.jpeg','.png']
     ext = ['.nfo']
     file_ext = os_path.splitext(filepath)[1].lower()
+    if any(filepath.endswith(ext)):
+        os.remove(filepath)
+        return
     #LOGGER.info(f'55: {file_ext}')
     LOGGER.info(f'54: {filepath}')
     LOGGER.debug(f'Uploading : {filepath}')
