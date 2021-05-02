@@ -19,6 +19,7 @@ from bot.plugins import formater, split, thumbnail_video, ffprobe
 async def func(filepath: str, client: Client,  message: Message, delete=False):
     base_file_name = os.path.dirname(filepath)
     LOGGER.info(f'21: {base_file_name}')
+    LOGGER.info(f'22: {filepath}')
     if not os_path.exists(filepath):
         LOGGER.error(f'File not found : {filepath}')
         await asyncio_sleep(2)
@@ -48,7 +49,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     ext = ['.nfo']
     file_ext = os_path.splitext(filepath)[1].lower()
     #LOGGER.info(f'55: {file_ext}')
-    LOGGER.info(f'56: {filepath}')
+    LOGGER.info(f'52: {filepath}')
     LOGGER.debug(f'Uploading : {filepath}')
 
     if STATUS.UPLOAD_AS_DOC:
