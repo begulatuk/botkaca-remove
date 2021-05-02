@@ -48,14 +48,11 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     
     video = ['.mp4','.mkv','.avi','.webm','.wmv','.mov']
     photo = ['.jpg','.jpeg','.png']
-    ext = ['.nfo']
+    ext = ['.nfo','.exe']
     file_ext = os_path.splitext(filepath)[1].lower()
-    #LOGGER.info(f'53: {filepath}')
-    if filepath.endswith(".nfo"):
+    if any(filepath.endswith(s) for s in ext) and os_path.getsize(filepath) < int(CONFIG.UPLOAD_MIN_SIZE):
         os.remove(filepath)
-        #return
-    #LOGGER.info(f'55: {file_ext}')
-    #LOGGER.info(f'54: {filepath}')
+        return
     LOGGER.debug(f'Uploading : {filepath}')
 
     if STATUS.UPLOAD_AS_DOC:
