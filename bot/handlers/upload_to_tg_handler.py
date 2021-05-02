@@ -18,7 +18,7 @@ from bot.plugins import formater, split, thumbnail_video, ffprobe
 
 async def func(filepath: str, client: Client,  message: Message, delete=False):
     base_file_name = os.path.basename(filepath)
-    LOGGER.info(base_file_name)
+    LOGGER.info(f'21: {base_file_name}')
     if not os_path.exists(filepath):
         LOGGER.error(f'File not found : {filepath}')
         await asyncio_sleep(2)
@@ -30,11 +30,9 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
         return
 
     if os_path.isdir(filepath):
-        test = os.listdir(filepath)
-        LOGGER.info(filepath)
-        for item in test:
-            if item.endswith(".nfo"):
-                os.remove(os.path.join(filepath, item))
+        dir_name = os.path.basename(os.path.dirname(filepath))
+        
+        LOGGER.info(f'35: {dir_name}')
         ls = os_lisdir(filepath)
         async for filepath in ls:
             await asyncio_sleep(2)
@@ -52,7 +50,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     photo = ['.jpg','.jpeg','.png']
     ext = ['.nfo']
     file_ext = os_path.splitext(filepath)[1].lower()
-    LOGGER.info(f'55: {file_ext}')
+    #LOGGER.info(f'55: {file_ext}')
     LOGGER.info(f'56: {filepath}')
     LOGGER.debug(f'Uploading : {filepath}')
 
