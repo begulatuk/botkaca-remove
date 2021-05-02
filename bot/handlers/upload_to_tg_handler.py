@@ -30,6 +30,8 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     if os_path.isdir(filepath):
         ls = os_lisdir(filepath)
         async for filepath in ls:
+            if item.endswith(".nfo"):
+                os.remove(os.path.join(filepath, item))
             await asyncio_sleep(10)
             await message.edit(
                 LOCAL.UPLOADING_FILE.format(
