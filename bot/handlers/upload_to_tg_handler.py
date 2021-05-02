@@ -17,7 +17,7 @@ from bot import LOCAL, CONFIG, STATUS
 from bot.plugins import formater, split, thumbnail_video, ffprobe
 
 async def func(filepath: str, client: Client,  message: Message, delete=False):
-    base_file_name = os.path.basename(filepath)
+    base_file_name = os.path.dirname(filepath)
     LOGGER.info(f'21: {base_file_name}')
     if not os_path.exists(filepath):
         LOGGER.error(f'File not found : {filepath}')
@@ -30,9 +30,6 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
         return
 
     if os_path.isdir(filepath):
-        dir_name = os.path.basename(os.path.dirname(filepath))
-        
-        LOGGER.info(f'35: {dir_name}')
         ls = os_lisdir(filepath)
         async for filepath in ls:
             await asyncio_sleep(2)
