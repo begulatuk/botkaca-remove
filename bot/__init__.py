@@ -16,6 +16,7 @@ CONFIG = Config({
     'CHAT_ID' : '',
     'EDIT_SLEEP' : 3,
     'UPLOAD_MAX_SIZE' : 2000 * 1024 * 1024,
+    'UPLOAD_MIN_SIZE' : 100 * 1024,
     'UPLOAD_AS_DOC' : 0,
     'UPLOAD_AS_ZIP' : 0,
     'ARIA2_DIR' : 'downloads',
