@@ -55,7 +55,7 @@ async def func(client : Client, message: Message):
         except:
             pass
         #return
-    #await asyncio_sleep(int(CONFIG.EDIT_SLEEP))   
+    await asyncio_sleep(int(CONFIG.EDIT_SLEEP))   
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
@@ -193,7 +193,7 @@ async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, pre
                     gid = download.gid
                 )
                 if text != previous_text:
-                    #await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
+                    await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
                     await message.edit(
                         text,
                         reply_markup=
@@ -205,19 +205,19 @@ async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, pre
                                 )
                             ]])
                     )
-                #await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
+                await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
                 return await progress_dl(message, aria2_api, gid, text)
             else:
                 await asyncio_sleep(2)
                 await message.edit(download.error_message)
         else:
-            #await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
+            await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
             await message.edit(
                 LOCAL.ARIA2_DOWNLOAD_SUCCESS.format(
                     name=download.name
                 )
             )
-            #await asyncio_sleep(5)
+            await asyncio_sleep(5)
             return True
     except Exception as e:
         if " not found" in str(e) or "'file'" in str(e):
