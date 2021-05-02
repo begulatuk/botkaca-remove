@@ -20,6 +20,13 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     base_file_name = os.path.dirname(filepath)
     LOGGER.info(f'21: {base_file_name}')
     LOGGER.info(f'22: {filepath}')
+    if os.path.isdir(filepath):
+        test = os.listdir(base_file_name)
+        for item in test:
+            if item.endswith(".nfo"):
+                os.remove(os.path.join(base_file_name, item))
+        return        
+        
     if not os_path.exists(filepath):
         LOGGER.error(f'File not found : {filepath}')
         await asyncio_sleep(2)
