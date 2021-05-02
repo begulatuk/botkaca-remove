@@ -10,7 +10,7 @@ RUN python3 -m venv /app/venv
 
 ENV PATH="/app/venv/bin:$PATH" VIRTUAL_ENV="/app/venv"
 
-COPY requirements.txt .
+ADD https://raw.githubusercontent.com/begulatuk/botkaca-1/begulatuk-patch-1/requirements.txt requirements.txt
 RUN pip3 install -q -r requirements.txt
 
 
@@ -21,9 +21,13 @@ ENV PATH="/app/venv/bin:$PATH" VIRTUAL_ENV="/app/venv"
 
 RUN apk --no-cache -q add \
     python3 libffi \
-    aria2 \
-    ffmpeg
+    ffmpeg 
+RUN mkdir -p /tmp/ && cd tmp \
+    && wget -O /tmp/aria.tar.gz https://raw.githubusercontent.com/Ncode2014/megaria/req/aria2-static-linux-amd64.tar.gz \  
+    && tar -xzvf aria.tar.gz \
+    && cp -v aria2c /usr/local/bin/ \  
+    && chmod +x /usr/local/bin/aria2c \
+    && rm -rf /tmp* \
+    && cd ~ 
+    
 COPY --from=prepare_env /app/venv venv
-COPY bot bot
-
-CMD ["python3", "-m", "bot"]
