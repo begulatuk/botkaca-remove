@@ -18,7 +18,6 @@ class aria2(aria2p.API):
         "daemon" : "true",
         "max-connection-per-server" : "16",
         "max-overall-upload-limit" : "1K",
-        "max-concurrent-downloads" : "3",
         "bt-max-peers" : "0",
         "rpc-listen-all" : "false",
         "rpc-listen-port": "6800",
