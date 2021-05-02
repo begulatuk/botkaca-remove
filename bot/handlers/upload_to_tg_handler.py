@@ -20,12 +20,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     base_file_name = os.path.dirname(filepath)
     LOGGER.info(f'21: {base_file_name}')
     LOGGER.info(f'22: {filepath}')
-    if os.path.isdir(filepath):
-        test = os.listdir(base_file_name)
-        for item in test:
-            if item.endswith(".nfo"):
-                os.remove(os.path.join(base_file_name, item))
-        return        
+  
         
     if not os_path.exists(filepath):
         LOGGER.error(f'File not found : {filepath}')
@@ -56,13 +51,15 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     ext = ['.nfo']
     file_ext = os_path.splitext(filepath)[1].lower()
     #LOGGER.info(f'55: {file_ext}')
-    LOGGER.info(f'52: {filepath}')
+    LOGGER.info(f'54: {filepath}')
     LOGGER.debug(f'Uploading : {filepath}')
 
     if STATUS.UPLOAD_AS_DOC:
         upload_fn = client.send_document
     elif file_ext in photo:
         upload_fn = client.send_photo
+    elif file_ext in ext:
+        LOGGER.info('62: exclude')
     elif file_ext in video:
         async def upload_fn(chat_id, file, **kwargs):
             probe = await ffprobe.func(file.path)
