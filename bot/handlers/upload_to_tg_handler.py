@@ -21,7 +21,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     LOGGER.info(base_file_name)
     if not os_path.exists(filepath):
         LOGGER.error(f'File not found : {filepath}')
-        await asyncio_sleep(10)
+        await asyncio_sleep(2)
         await message.edit_text(
             LOCAL.UPLOAD_FAILED_FILE_MISSING.format(
                 name = os_path.basename(filepath)
@@ -37,7 +37,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
                 os.remove(os.path.join(filepath, item))
         ls = os_lisdir(filepath)
         async for filepath in ls:
-            await asyncio_sleep(10)
+            await asyncio_sleep(2)
             await message.edit(
                 LOCAL.UPLOADING_FILE.format(
                     name = os_path.basename(filepath)
@@ -50,8 +50,10 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
 
     video = ['.mp4','.mkv','.avi','.webm','.wmv','.mov']
     photo = ['.jpg','.jpeg','.png']
-
+    ext = ['.nfo']
     file_ext = os_path.splitext(filepath)[1].lower()
+    LOGGER.info(f'55: {file_ext}')
+    LOGGER.info(f'56: {filepath}')
     LOGGER.debug(f'Uploading : {filepath}')
 
     if STATUS.UPLOAD_AS_DOC:
