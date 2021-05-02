@@ -50,7 +50,7 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
     photo = ['.jpg','.jpeg','.png']
     ext = ['.nfo']
     file_ext = os_path.splitext(filepath)[1].lower()
-    LOGGER.info(f'53: {filepath})
+    LOGGER.info(f'53: {filepath}')
     if filepath.endswith(".nfo"):
         os.remove(filepath)
         return
