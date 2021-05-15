@@ -29,14 +29,24 @@ from bot.handlers.direct_link_generator import direct_link_generator
 
 @Client.on_message(filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
+    args = message.text.split(" ")
     name_args = message.text.split("|")
-    args_1 = name_args[0].split(" ")
-    args = args_1[1]
+    try:
+        url = args[1]
+    except IndexError:
+        url = ''
+    try:
+        name = name_args[1]
+    except IndexError:
+        name = ''
+    #args_1 = name_args[0].split(" ")
+    #args = args_1[1]
     #args = 
     #name_args = message.text.split("|")
     LOGGER.info(args)
-    #LOGGER.info(name_args)
-    name = None
+    LOGGER.info(url)
+    LOGGER.info(name)
+    #name = None
   
     
     if len(args) <= 1:        
@@ -45,15 +55,15 @@ async def func(client : Client, message: Message):
         except:
             pass
         return
-    elif len(name_args) == 2:
-        try:
-            name = name_args[1]
-            name = name.strip()
-            LOGGER.info(name)
-            LOGGER.info(name_args)
+    #elif len(name_args) == 2:
+    #    try:
+    #        name = name_args[1]
+    #        name = name.strip()
+    #        LOGGER.info(name)
+    #        LOGGER.info(name_args)
             #LOGGER.info(name_args[0])
-        except:
-            pass
+    #    except:
+    #        pass
         #return
     await asyncio_sleep(int(CONFIG.EDIT_SLEEP))   
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
@@ -70,7 +80,8 @@ async def func(client : Client, message: Message):
     await asyncio_sleep(1)
     await aria2_api.start()
     #urls = " ".join(args[1:])      
-    text_url = args.replace(" ", "")
+    #text_url = args.replace(" ", "")
+    text_url = url.strip()
     LOGGER.debug(f'Leeching : {text_url}')
     #LOGGER.info(f'Leeching : {text_url}')
     if "zippyshare.com" in text_url \
