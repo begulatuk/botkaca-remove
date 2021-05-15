@@ -30,6 +30,13 @@ from bot.handlers.direct_link_generator import direct_link_generator
 @Client.on_message(filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
     args = message.text.split(" ")
+    if len(args) <= 1:        
+        try:
+            await message.delete()
+        except:
+            pass
+        return
+    
     name_args = message.text.split("|")
     try:
         url = args[1]
@@ -39,35 +46,11 @@ async def func(client : Client, message: Message):
         name = name_args[1]
     except IndexError:
         name = ''
-    #args_1 = name_args[0].split(" ")
-    #args = args_1[1]
-    #args = 
-    #name_args = message.text.split("|")
     LOGGER.info(args)
     LOGGER.info(url)
     LOGGER.info(name)
-    #name = None
-  
-    
-    if len(args) <= 1:        
-        try:
-            await message.delete()
-        except:
-            pass
-        return
-    #elif len(name_args) == 2:
-    #    try:
-    #        name = name_args[1]
-    #        name = name.strip()
-    #        LOGGER.info(name)
-    #        LOGGER.info(name_args)
-            #LOGGER.info(name_args[0])
-    #    except:
-    #        pass
-        #return
-    #await asyncio_sleep(int(CONFIG.EDIT_SLEEP))   
+    await asyncio_sleep(5)   
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
-    
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
         config={
@@ -78,8 +61,6 @@ async def func(client : Client, message: Message):
     aria2_api = STATUS.ARIA2_API
     await asyncio_sleep(1)
     await aria2_api.start()
-    #urls = " ".join(args[1:])      
-    #text_url = args.replace(" ", "")
     text_url = url.strip()
     LOGGER.debug(f'Leeching : {text_url}')
     #LOGGER.info(f'Leeching : {text_url}')
@@ -119,17 +100,6 @@ async def func(client : Client, message: Message):
                 str(e)
             )
             return
-    #if name:
-    #    try:
-    #        rename_path = os.path.join(download_dir, name)
-    #        os.rename(filepath, rename_path)
-    #        #download.name = rename_path
-    #    except:
-    #        LOGGER.info("error")
-    #path =  aria2_api.get_download(download.gid)
-    #LOGGER.info(f'path : {path}')
-    #LOGGER.info(f'download : {download}')
-    #LOGGER.info(f'download_name : {download.name}')
 
     if await progress_dl(reply, aria2_api, download.gid):
         download = aria2_api.get_download(download.gid)
