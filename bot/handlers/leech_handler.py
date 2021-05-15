@@ -65,11 +65,10 @@ async def func(client : Client, message: Message):
     #    except:
     #        pass
         #return
-    await asyncio_sleep(int(CONFIG.EDIT_SLEEP))   
+    #await asyncio_sleep(int(CONFIG.EDIT_SLEEP))   
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
-    await asyncio_sleep(2)
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
         config={
             'dir' : download_dir
