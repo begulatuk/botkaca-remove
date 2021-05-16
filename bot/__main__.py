@@ -6,7 +6,7 @@ from bot import CONFIG, COMMAND, LOCAL, LOGGER, STATUS
 from bot.handlers import *
 from bot.handlers import fs_utils
 import asyncio
-import shutil, psutil
+import shutil
 import signal
 import pickle
 from os import execl, path, remove
