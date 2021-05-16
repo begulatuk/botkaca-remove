@@ -18,7 +18,7 @@ def sendMessage(text: str, client: Client, message: Message):
         LOGGER.error(str(e))
 
 @Client.on_message(filters.command(COMMAND.RESTART))
-async def restart(client: Client, message: Message):
+def restart(client: Client, message: Message):
     restart_message = sendMessage(
         "Restarting, Please wait!",
         client,
