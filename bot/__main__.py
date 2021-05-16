@@ -13,7 +13,7 @@ from os import execl, path, remove
 
 loop = asyncio.get_event_loop()
 
-def main():
+def main(client: Client, message: Message):
     fs_utils.start_cleanup()
     # Check if the bot is restarting
     if path.exists('restart.pickle'):
