@@ -16,7 +16,14 @@ def start_cleanup():
         pass
 
 def clean_all():
-    aria2.aria2.remove_all(True)
+    STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
+        config={
+            'dir' : dir
+        }
+    )
+    aria2_api = STATUS.ARIA2_API
+    await aria2_api.start()
+    aria2_api.remove_all(True)
     try:
         shutil.rmtree(workdir)
     except FileNotFoundError:
