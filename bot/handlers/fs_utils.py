@@ -4,7 +4,7 @@ import os
 import pathlib
 import tarfile
 from os.path import join as os_path_join
-from bot import CONFIG
+from bot import STATUS, CONFIG
 from bot.plugins import aria2
 
 workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR)
@@ -15,7 +15,7 @@ def start_cleanup():
     except FileNotFoundError:
         pass
 
-def clean_all():
+async def clean_all():
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
         config={
             'dir' : dir
