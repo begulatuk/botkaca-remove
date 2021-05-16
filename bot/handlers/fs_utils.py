@@ -5,6 +5,7 @@ import pathlib
 import tarfile
 from os.path import join as os_path_join
 from bot import CONFIG
+from bot.plugins import aria2
 
 workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR)
 
