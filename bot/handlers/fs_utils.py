@@ -9,6 +9,16 @@ from bot.plugins import aria2
 
 workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR)
 
+
+def sendMessage(text: str, client: Client, message: Message):
+    try:
+        return client.send_message(chat_id=message.chat.id,
+                            reply_to_message_id=message.message_id,
+                            text=text)
+    except Exception as e:
+        LOGGER.error(str(e))
+        
+        
 def start_cleanup():
     try:
         shutil.rmtree(workdir)
