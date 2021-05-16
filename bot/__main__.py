@@ -11,7 +11,6 @@ import signal
 import pickle
 from os import execl, path, remove
 
-loop = asyncio.get_event_loop()
 
 def main():
     fs_utils.start_cleanup()
@@ -21,7 +20,6 @@ def main():
             restart_message = pickle.load(status)
         restart_message.edit_text("Restarted Successfully!")
         remove('restart.pickle')
-
         
     app = Client(
         "botkaca",
@@ -36,5 +34,6 @@ def main():
     LOGGER.info("Bot Started!")
     signal.signal(signal.SIGINT, fs_utils.exit_clean_up)
     app.run()
-if __name__ == '__main__':
+    
+if __name__ == "__main__":
     main()
