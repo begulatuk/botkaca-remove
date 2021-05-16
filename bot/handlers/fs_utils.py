@@ -2,7 +2,6 @@ import sys
 import shutil
 import os
 import pathlib
-import magic
 import tarfile
 from os.path import join as os_path_join
 from bot import CONFIG
