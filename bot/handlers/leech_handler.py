@@ -46,13 +46,13 @@ async def func(client : Client, message: Message):
     except IndexError:
         url = ''
     try:
-        name = name_args[1]
+        name = name_args[1].strip()
     except IndexError:
         name = ''
     LOGGER.info(args)
     LOGGER.info(url)
     LOGGER.info(name)
-    await asyncio_sleep(5)   
+    await asyncio_sleep(1)   
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
