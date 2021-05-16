@@ -16,7 +16,7 @@ def start_cleanup():
         pass
 
 def clean_all():
-    aria2.remove_all(True)
+    aria2.aria2.remove_all(True)
     try:
         shutil.rmtree(workdir)
     except FileNotFoundError:
