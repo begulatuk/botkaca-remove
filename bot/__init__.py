@@ -82,6 +82,7 @@ COMMAND = Config({
     'PASSWORD' : 'pass',
     'HELP' : 'help',
     'LEECH' : 'leech',
+    'RESTART' : 'restart',
     'CANCEL_LEECH' : 'cancel',
     'LEECH_LIST' : 'list',
     'UPLOAD_AS_DOC' : 'upload_as_doc',
