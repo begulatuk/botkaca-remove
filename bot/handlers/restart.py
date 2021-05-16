@@ -17,7 +17,7 @@ def restart(client: Client, message: Message):
     #    client,
     #    message
     #)
-    reply = await message.reply_text("Restarting, Please wait!")
+    reply = message.reply_text("Restarting, Please wait!")
     # Save restart message object in order to reply to it after restarting
     fs_utils.clean_all()
     with open('restart.pickle', 'wb') as status:
