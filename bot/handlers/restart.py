@@ -7,7 +7,7 @@ from pyrogram import (
 from pyrogram.types import Message
 from os import execl
 from sys import executable
-
+from bot.handlers import fs_utils
 
 def sendMessage(text: str, client: Client, message: Message):
     try:
