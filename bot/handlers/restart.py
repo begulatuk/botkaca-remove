@@ -1,7 +1,9 @@
+from bot import LOCAL, CONFIG, STATUS, COMMAND
 from pyrogram import (
     Client,
     filters
 )
+from pyrogram.types import Message
 from os import execl
 from sys import executable
 
