@@ -61,7 +61,8 @@ def main():
         )
     loop.create_task(app.start())
 if __name__ == '__main__':
-    loop.create_task(main())
+    main()
+    #loop.create_task(main())
     try:
         loop.run_forever()
     except (KeyboardInterrupt, SystemExit):
