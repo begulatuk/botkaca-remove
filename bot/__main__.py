@@ -4,7 +4,7 @@ from pyrogram.types import Message
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from bot import CONFIG, COMMAND, LOCAL, LOGGER, STATUS
 from bot.handlers import *
-from bot.handlers.fs_utils import fs_utils
+from bot.handlers import fs_utils
 import asyncio
 import shutil, psutil
 import signal
