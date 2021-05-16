@@ -14,7 +14,12 @@ def start_cleanup():
     except FileNotFoundError:
         pass
 
-
+def clean_all():
+    aria2.remove_all(True)
+    try:
+        shutil.rmtree(workdir)
+    except FileNotFoundError:
+        pass
 
 def exit_clean_up(signal, frame):
     try:
