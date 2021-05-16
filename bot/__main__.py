@@ -59,10 +59,9 @@ def main():
                 filters = lambda msg: not msg.chat.id in STATUS.CHAT_ID
             )
         )
-    
-if __name__ == '__main__':
-    main()
     loop.create_task(app.start())
+if __name__ == '__main__':
+    loop.create_task(main())
     try:
         loop.run_forever()
     except (KeyboardInterrupt, SystemExit):
