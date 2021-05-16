@@ -1,3 +1,7 @@
+from pyrogram import (
+    Client,
+    filters
+)
 from os import execl
 from sys import executable
 
