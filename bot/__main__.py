@@ -35,6 +35,7 @@ def main():
     app.DOWNLOAD_WORKERS = 100
     app.set_parse_mode("html")
     LOGGER.info("Bot Started!")
+    signal.signal(signal.SIGINT, fs_utils.exit_clean_up)
     # register /start handler
     app.add_handler(
         MessageHandler(
@@ -62,16 +63,4 @@ def main():
     app.run()
 if __name__ == '__main__':
     main()
-    #loop.create_task(main())
-    #try:
-    #    loop.run_forever()
-    #except (KeyboardInterrupt, SystemExit):
-    #    loop.run_until_complete(app.stop())
-    #    loop.close()
-    #loop = asyncio.get_event_loop()
-    #loop.create_task()
-    #try:
-    #    loop.run_forever()
-    #except (KeyboardInterrupt, SystemExit):
-    #    loop.run_until_complete(app.stop())
-    #    loop.close()
+
