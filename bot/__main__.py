@@ -12,13 +12,13 @@ import pickle
 from os import execl, path, remove
 
 loop = asyncio.get_event_loop()
-def main():
+def main(client: Client, message: Message):
     fs_utils.start_cleanup()
     # Check if the bot is restarting
     if path.exists('restart.pickle'):
         with open('restart.pickle', 'rb') as status:
             restart_message = pickle.load(status)
-        restart_message.edit_text("Restarted Successfully!")
+        message.edit_text(restart_message)
         remove('restart.pickle')
     
 # Initialize bot
