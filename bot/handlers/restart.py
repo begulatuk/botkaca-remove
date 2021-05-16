@@ -1,3 +1,4 @@
+import pickle
 from bot import LOCAL, CONFIG, STATUS, COMMAND
 from pyrogram import (
     Client,
