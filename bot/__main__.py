@@ -37,4 +37,4 @@ def main(client: Client, message: Message):
     signal.signal(signal.SIGINT, fs_utils.exit_clean_up)
     app.run()
 if __name__ == '__main__':
-    main()
+    main(client: Client, message: Message)
