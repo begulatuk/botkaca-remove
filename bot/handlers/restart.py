@@ -21,5 +21,5 @@ def restart(client: Client, message: Message):
     # Save restart message object in order to reply to it after restarting
     fs_utils.clean_all()
     with open('restart.pickle', 'wb') as status:
-        pickle.dump(restart_message, status)
+        pickle.dump(reply, status)
     execl(executable, executable, "-m", "bot")
