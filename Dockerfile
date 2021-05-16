@@ -21,8 +21,8 @@ ENV PATH="/app/venv/bin:$PATH" VIRTUAL_ENV="/app/venv"
 
 RUN apk --no-cache -q add \
     python3 libffi \
-    ffmpeg bash
+    ffmpeg bash unzip curl wget
 COPY setup.sh .
 RUN bash setup.sh
-
+RUN apk del bash unzip curl wget
 COPY --from=prepare_env /app/venv venv
