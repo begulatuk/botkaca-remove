@@ -18,7 +18,7 @@ def main():
     if path.exists('restart.pickle'):
         with open('restart.pickle', 'rb') as status:
             restart_message = pickle.load(status)
-        restart_message.edit_text(restart_message)
+        restart_message.edit_text("Restarted Successfully!")
         remove('restart.pickle')
     
 # Initialize bot
