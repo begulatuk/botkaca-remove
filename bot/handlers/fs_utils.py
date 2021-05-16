@@ -4,10 +4,14 @@ import os
 import pathlib
 import magic
 import tarfile
+from os.path import join as os_path_join
+from bot import CONFIG
+
+workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR)
 
 def start_cleanup():
     try:
-        shutil.rmtree(DOWNLOAD_DIR)
+        shutil.rmtree(workdir)
     except FileNotFoundError:
         pass
 
