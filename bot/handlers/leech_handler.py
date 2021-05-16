@@ -26,7 +26,10 @@ from bot.handlers import upload_to_tg_handler
 from bot.handlers import cancel_leech_handler
 from bot.handlers.exceptions import DirectDownloadLinkException
 from bot.handlers.direct_link_generator import direct_link_generator
+from functools import partial
 
+import asyncio
+loop = asyncio.get_event_loop()
 @Client.on_message(filters.command(COMMAND.LEECH))
 async def func(client : Client, message: Message):
     args = message.text.split(" ")
@@ -83,11 +86,16 @@ async def func(client : Client, message: Message):
         link = [text_url]
     try:
         LOGGER.info(link)
-        download = aria2_api.add_uris(link, options={
+        #download = aria2_api.add_uris(link, options={
+        #    'continue_downloads' : True,
+        #    'bt_tracker' : STATUS.DEFAULT_TRACKER,
+        #    'out': name
+        #})
+         download = await aloop.run_in_executor(None, partial(aria2_api.add_uris, link, options={
             'continue_downloads' : True,
             'bt_tracker' : STATUS.DEFAULT_TRACKER,
             'out': name
-        })
+        }))       
     except Exception as e:
         if "No URI" in str(e):
             await reply.edit_text(
