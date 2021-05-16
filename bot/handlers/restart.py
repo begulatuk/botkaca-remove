@@ -14,7 +14,7 @@ from bot.handlers.fs_utils import *
 def restart(client: Client, message: Message):
     restart_message = sendMessage(
         "Restarting, Please wait!",
-        #client,
+        client,
         message
     )
     # Save restart message object in order to reply to it after restarting
