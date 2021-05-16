@@ -6,6 +6,8 @@ import tarfile
 from os.path import join as os_path_join
 from bot import STATUS, CONFIG
 from bot.plugins import aria2
+from pyrogram import Client
+from pyrogram.types import Message
 
 workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR)
 
