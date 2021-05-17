@@ -13,7 +13,7 @@ def get_codec(filepath, channel='v:0'):
                             'default=nokey=1:noprint_wrappers=1', filepath])
     return output.decode('utf-8').split()
 
-async def encode(filepath):
+def encode(filepath):
     basefilepath, extension = os.path.splitext(filepath)
     output_filepath = basefilepath + '.HEVC' + '.mp4'
     assert(output_filepath != filepath)
