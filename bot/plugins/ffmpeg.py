@@ -57,7 +57,7 @@ def encode(filepath):
     LOGGER.debug(cmd)
     process = subprocess.Popen(cmd)
     #call(['ffmpeg",
-        ', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
+       # ', '-i', filepath] + video_opts.split() + audio_opts.split() + [output_filepath])
     os.remove(filepath)
     return output_filepath
 
