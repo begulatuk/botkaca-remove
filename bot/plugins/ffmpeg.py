@@ -54,8 +54,15 @@ def encode(filepath):
         "ffmpeg",
         "-i",
         filepath,
-        video_opts.split(),
-        audio_opts.split(),
+        "-c:v",
+        "libx265",
+        "-crf 28",
+        "-tag:v",
+        "hvc1",
+        "-preset slow",
+        "-threads 2",
+        "-c:a",
+        "copy",
         output_filepath
     ]        
     LOGGER.debug(cmd)
