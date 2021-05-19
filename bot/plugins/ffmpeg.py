@@ -7,6 +7,10 @@ from subprocess import call, check_output
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 import subprocess
+import logging
+
+LOGGER = logging.getLogger(__name__)
+
 
 def get_codec(filepath, channel='v:0'):
     output = check_output(['ffprobe', '-v', 'error', '-select_streams', channel,
