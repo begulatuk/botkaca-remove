@@ -35,7 +35,6 @@ async def func(client : Client, data : Union[Message, CallbackQuery]):
         update_fn = data.reply_text
     elif type(data) is CallbackQuery:
         text = data.data
-        LOGGER.info(f"text_callback: {text}")
         gid = " ".join(text.split(" ")[1:])
         if not gid:
             return False
@@ -64,6 +63,6 @@ async def func(client : Client, data : Union[Message, CallbackQuery]):
             except:
                 pass
                 
-@Client.on_callback_query(filters.create(lambda _, query: query.data.startswith(COMMAND.CANCEL_LEECH)))
+@Client.on_callback_query(filters.create(lambda _, __, query: query.data.startswith(COMMAND.CANCEL_LEECH)))
 async def func2(*args, **kwargs):
-    return await func(client : Client, data : Union[Message, CallbackQuery])
+    return await func(*args, **kwargs)
