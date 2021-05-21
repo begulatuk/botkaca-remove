@@ -87,8 +87,8 @@ async def func(client : Client, message: Message):
         #LOGGER.info(link)
         download = await loop.run_in_executor(None, partial(aria2_api.add_uris, link, options={
             'continue_downloads' : True,
-            'bt_tracker' : STATUS.DEFAULT_TRACKER,
-            'out': name
+            'bt_tracker' : STATUS.DEFAULT_TRACKER
+            #'out': name
         }))       
     except Exception as e:
         if "No URI" in str(e):
