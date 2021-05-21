@@ -101,5 +101,5 @@ STATUS = type('obj', (object,), {
     'UPLOAD_AS_DOC' : bool(int(CONFIG.UPLOAD_AS_DOC)),
     'UPLOAD_AS_ZIP' : bool(int(CONFIG.UPLOAD_AS_ZIP)),
     'DEFAULT_TRACKER' : CONFIG.TORRENT_TRACKER.split(','),
-    'CHAT_ID' : CONFIG.CHAT_ID.split(',')
+    'CHAT_ID' : CONFIG.CHAT_ID.split()
 })
