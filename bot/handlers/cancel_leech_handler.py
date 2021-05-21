@@ -13,6 +13,9 @@ from pyrogram.types import Message
 #from pyrogram import Client, Message, Filters
 from bot import LOCAL, CONFIG, STATUS, COMMAND
 from typing import Union
+import asyncio
+loop = asyncio.get_event_loop()
+
 
 @Client.on_message(filters.command(COMMAND.CANCEL_LEECH))
 async def func(client : Client, data : Union[Message, CallbackQuery]):
@@ -40,7 +43,7 @@ async def func(client : Client, data : Union[Message, CallbackQuery]):
     if STATUS.ARIA2_API:
         aria2_api = STATUS.ARIA2_API
         try:
-            download = aria2_api.get_download(gid)
+            download = await loop.run_in_executor(None, aria2_api.get_download, gid)
             download.remove(force=True, files=True)
             LOGGER.debug(f'Cancel upload : {download.name}')
             await update_fn(
