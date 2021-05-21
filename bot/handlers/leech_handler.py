@@ -129,7 +129,6 @@ def abs_files(root, files):
 async def upload_files(client, reply, filepaths, zippath):
     if not STATUS.UPLOAD_AS_ZIP:
         for filepath in filepaths:
-            LOGGER.info(f'done : {filepath}')
             await upload_to_tg_handler.func(
                 filepath,
                 client,
