@@ -22,7 +22,9 @@ async def func(client : Client, data : Union[Message, CallbackQuery]):
     gid = ""
     update_fn = None
     if type(data) is Message:
+        LOGGER.info(data)
         text = data.text
+        LOGGER.info(f"text_messagek: {text}")
         gid = " ".join(text.split(" ")[1:])
         if not gid:               
             try:
@@ -33,6 +35,7 @@ async def func(client : Client, data : Union[Message, CallbackQuery]):
         update_fn = data.reply_text
     elif type(data) is CallbackQuery:
         text = data.data
+        LOGGER.info(f"text_callback: {text}")
         gid = " ".join(text.split(" ")[1:])
         if not gid:
             return False
