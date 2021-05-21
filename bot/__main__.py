@@ -1,5 +1,5 @@
 from os.path import join as os_path_join
-from pyrogram import Client, filters
+from pyrogram import Client, filters 
 from pyrogram.types import Message
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from bot import CONFIG, COMMAND, LOCAL, LOGGER, STATUS
@@ -21,7 +21,7 @@ app.set_parse_mode("html")
 app.add_handler(
     MessageHandler(
         start_message_handler.func,
-        filters=Filters.command(COMMAND.START)
+        filters=filters.command(COMMAND.START)
     )
 )
 
@@ -30,7 +30,7 @@ if CONFIG.BOT_PASSWORD:
     app.add_handler(
         MessageHandler(
             password_handler.func,
-            filters = Filters.command(COMMAND.PASSWORD)
+            filters = filters.command(COMMAND.PASSWORD)
         )
     )
 
@@ -43,10 +43,5 @@ if CONFIG.BOT_PASSWORD:
     )
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    loop.create_task(app.start())
-    try:
-        loop.run_forever()
-    except (KeyboardInterrupt, SystemExit):
-        loop.run_until_complete(app.stop())
-        loop.close()
+    app.run()
+
