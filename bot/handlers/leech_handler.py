@@ -104,7 +104,7 @@ async def func(client : Client, message: Message):
             return
 
     if await progress_dl(reply, aria2_api, download.gid):
-        download = aria2_api.get_download(download.gid)
+        download = await loop.run_in_executor(None, aria2_api.get_download, download.gid)
         if not download.followed_by_ids:
             download.remove(force=True)                   
             await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
@@ -113,7 +113,7 @@ async def func(client : Client, message: Message):
             download.remove(force=True, files=True)
             for gid in gids:
                 if await progress_dl(reply, aria2_api, gid):
-                    download = aria2_api.get_download(gid)
+                    download = await loop.run_in_executor(None, aria2_api.get_download, gid)
                     download.remove(force=True)
                     await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         try:
@@ -146,7 +146,7 @@ async def upload_files(client, reply, filepaths, zippath):
 
 async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, previous_text=None):
     try:
-        download = aria2_api.get_download(gid)
+        download = await loop.run_in_executor(None, aria2_api.get_download, gid)
         if not download.is_complete:
             if not download.error_message:
                 block = ""
