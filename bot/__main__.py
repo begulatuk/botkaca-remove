@@ -5,7 +5,8 @@ from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from bot import CONFIG, COMMAND, LOCAL, LOGGER, STATUS
 from bot.handlers import *
 import asyncio
-
+import logging
+LOGGER = logging.getLogger(__name__)
 
 app = Client(
     "Bot",
@@ -43,5 +44,6 @@ if CONFIG.BOT_PASSWORD:
     )
 
 if __name__ == '__main__':
+    LOGGER.info("Bot Started!")
     app.run()
 
