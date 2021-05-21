@@ -39,7 +39,7 @@ class aria2(aria2p.API):
             for key in self.__config:
                 cmd.append(f"--{key}={self.__config[key]}")
             if not os.path.exists("epic.conf"):
-                with open("epic.conf", "rw+", newline="\n", encoding="utf-8") as f:
+                with open("epic.conf", "w+", newline="\n", encoding="utf-8") as f:
                     f.write(CONFIG.ARIA_CONF)
                     cmd.append("--conf-path=epic.conf")
                     conf = f.read()
