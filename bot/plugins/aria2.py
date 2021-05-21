@@ -10,6 +10,7 @@ LOGGER = logging.getLogger(__name__)
 import os
 import asyncio
 import aria2p
+from bot import CONFIG
 
 class aria2(aria2p.API):
     __api =  None
@@ -37,11 +38,12 @@ class aria2(aria2p.API):
             ]
             for key in self.__config:
                 cmd.append(f"--{key}={self.__config[key]}")
-            if os.path.exists("dht.dat") and os.path.exists("dht6.dat"):
-                cmd.append("--dht-file-path=/app/dht.dat")
-                cmd.append("--dht-file-path6=/app/dht6.dat")
-            if os.path.exists("epic.conf"):
-                cmd.append("--conf-path=epic.conf")
+            if not os.path.exists("epic.conf"):
+                with open("epic.conf", "rw+", newline="\n", encoding="utf-8") as f:
+                    f.write(CONFIG.ARIA_CONF)
+                    cmd.append("--conf-path=epic.conf")
+                    conf = f.read()
+                    print(conf)
             LOGGER.info(cmd)
             self.__process = await asyncio.create_subprocess_exec(
                 *cmd,
