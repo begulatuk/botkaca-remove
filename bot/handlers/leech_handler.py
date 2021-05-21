@@ -52,7 +52,6 @@ async def func(client : Client, message: Message):
     LOGGER.info(args)
     LOGGER.info(url)
     LOGGER.info(name)
-    await asyncio_sleep(1)   
     reply = await message.reply_text(LOCAL.ARIA2_CHECKING_LINK)
     download_dir = os_path_join(CONFIG.ROOT, CONFIG.ARIA2_DIR)
     STATUS.ARIA2_API = STATUS.ARIA2_API or aria2.aria2(
@@ -62,7 +61,7 @@ async def func(client : Client, message: Message):
         }
     )
     aria2_api = STATUS.ARIA2_API
-    await asyncio_sleep(1)
+    await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
     await aria2_api.start()
     text_url = url.strip()
     LOGGER.debug(f'Leeching : {text_url}')
@@ -85,12 +84,7 @@ async def func(client : Client, message: Message):
     else:
         link = [text_url]
     try:
-        LOGGER.info(link)
-        #download = aria2_api.add_uris(link, options={
-        #    'continue_downloads' : True,
-        #    'bt_tracker' : STATUS.DEFAULT_TRACKER,
-        #    'out': name
-        #})
+        #LOGGER.info(link)
         download = await loop.run_in_executor(None, partial(aria2_api.add_uris, link, options={
             'continue_downloads' : True,
             'bt_tracker' : STATUS.DEFAULT_TRACKER,
@@ -113,9 +107,6 @@ async def func(client : Client, message: Message):
         download = aria2_api.get_download(download.gid)
         if not download.followed_by_ids:
             download.remove(force=True)                   
-            await asyncio_sleep(1)
-            LOGGER.info(f'uploading :  {download.name}')
-            
             await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         else:
             gids = download.followed_by_ids
@@ -124,7 +115,6 @@ async def func(client : Client, message: Message):
                 if await progress_dl(reply, aria2_api, gid):
                     download = aria2_api.get_download(gid)
                     download.remove(force=True)
-                    await asyncio_sleep(1)
                     await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         try:
             await reply.delete()
@@ -148,7 +138,6 @@ async def upload_files(client, reply, filepaths, zippath):
             )
     else:
         zipfile.func(filepaths, zippath)
-        
         await upload_to_tg_handler.func(
             zippath,
             client,
@@ -195,6 +184,7 @@ async def progress_dl(message : Message, aria2_api : aria2.aria2, gid : int, pre
             else:
                 await message.edit(download.error_message)
         else:
+            await asyncio_sleep(int(CONFIG.EDIT_SLEEP))
             await message.edit(
                 LOCAL.ARIA2_DOWNLOAD_SUCCESS.format(
                     name=download.name
