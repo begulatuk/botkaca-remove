@@ -28,7 +28,7 @@ def main():
         bot_token=CONFIG.BOT_TOKEN,
         api_id=CONFIG.API_ID,
         api_hash=CONFIG.API_HASH,
-        workers=32,
+        workers=64,
         workdir=os_path_join(CONFIG.ROOT, CONFIG.WORKDIR),
         plugins=dict(root="bot/handlers")
     )
