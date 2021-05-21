@@ -50,7 +50,7 @@ def main():
         app.add_handler(
             MessageHandler(
                 password_handler.func,
-                filters = filters.command(COMMAND.PASSWORD)
+                filters=filters.command(COMMAND.PASSWORD)
             )
         )
 
@@ -58,7 +58,8 @@ def main():
         app.add_handler(
             MessageHandler(
                 wrong_room_handler.func,
-                filters = lambda msg: not msg.chat.id in STATUS.CHAT_ID
+                filters=lambda msg: not msg.chat.id in STATUS.CHAT_ID
+                #filters=~filters.chat(chats=STATUS.CHAT_ID)
             )
         )
     app.run()
