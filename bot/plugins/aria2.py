@@ -42,10 +42,9 @@ class aria2(aria2p.API):
                 with open("epic.conf", "w+", newline="\n", encoding="utf-8") as f:
                     f.write(CONFIG.ARIA_CONF)
                     cmd.append("--conf-path=epic.conf")
-                    e = open("epic.conf", "w+")
-                    text = e.read()
-                    print(text)
-                    
+            e = open("epic.conf", "r+")  
+            text = e.read()
+            print(text)
             LOGGER.info(cmd)
             self.__process = await asyncio.create_subprocess_exec(
                 *cmd,
