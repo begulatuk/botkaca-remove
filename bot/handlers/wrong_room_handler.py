@@ -10,5 +10,5 @@ async def func(client : Client, message: Message):
             )
         )
         await client.leave_chat(chat_id=message.chat.id, delete=True)
-    await message.delete(revoke=True)    
+    await message.delete()    
 
