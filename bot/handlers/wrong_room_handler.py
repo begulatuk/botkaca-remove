@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from bot import LOCAL, CONFIG, STATUS
 
-@Client.on_message(~filters.chat(chats=STATUS.CHAT_ID))
+@Client.on_message(~filters.chat(325093739)
 async def func(client : Client, message: Message):
     if message.chat.type != "private":
         await message.reply_text(
