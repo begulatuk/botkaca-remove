@@ -11,4 +11,7 @@ async def func(client : Client, message: Message):
             )
         )
     else:
-        await message.delete()
+        try:
+            await message.delete()
+        except:
+            pass
