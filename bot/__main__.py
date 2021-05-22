@@ -36,6 +36,7 @@ def main():
     app.DOWNLOAD_WORKERS = 100
     app.set_parse_mode("html")
     LOGGER.info("Bot Started!")
+    LOGGER.info(STATUS.CHAT_ID)
     signal.signal(signal.SIGINT, fs_utils.exit_clean_up)
     # register /start handler
     app.add_handler(
@@ -57,7 +58,7 @@ def main():
             MessageHandler(
                 wrong_room_handler.func,
                 #filters = ~filters.chat(chats=lambda msg: not msg.chat.id in STATUS.CHAT_ID)
-                filters = ~filters.chat(chats=STATUS.CHAT_ID)
+                filters = filters.chat(chats=STATUS.CHAT_ID)
             )
         )
     app.run()
