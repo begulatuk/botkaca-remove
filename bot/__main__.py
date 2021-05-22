@@ -56,7 +56,7 @@ def main():
         app.add_handler(
             MessageHandler(
                 wrong_room_handler.func,
-                filters = filters.chat(chats=lambda msg: not msg.chat.id in STATUS.CHAT_ID)
+                filters = ~filter.chat(chats=lambda msg: not msg.chat.id in STATUS.CHAT_ID)
                 #filters=~filters.chat(chats=STATUS.CHAT_ID)
             )
         )
