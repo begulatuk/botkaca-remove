@@ -46,14 +46,6 @@ def main():
     )
 
     if CONFIG.BOT_PASSWORD:
-        # register /pass handler
-        app.add_handler(
-            MessageHandler(
-                password_handler.func,
-                filters=filters.command(COMMAND.PASSWORD)
-            )
-        )
-
         # take action on unauthorized chat room
         app.add_handler(
             MessageHandler(
