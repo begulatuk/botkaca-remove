@@ -54,13 +54,13 @@ def main():
     #            )
     #       )        
         # take action on unauthorized chat room
-    app.add_handler(
-        MessageHandler(
-            wrong_room_handler.func,
-            filters=lambda _, msg: not msg.chat.id in STATUS.CHAT_ID
-            #filters=~filters.chat(chats=CONFIG.CHAT_ID)
-        )
-    )
+        #app.add_handler(
+        #    MessageHandler(
+         #       wrong_room_handler.func,
+         #       filters = lambda msg: not msg.chat.id in STATUS.CHAT_ID, _
+         #       #filters=~filters.chat(chats=CONFIG.CHAT_ID)
+         #  )
+        #)
     app.run()
     
 if __name__ == "__main__":
