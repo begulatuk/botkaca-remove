@@ -46,21 +46,21 @@ def main():
         )
     )
 
-    if CONFIG.BOT_PASSWORD:
-        #app.add_handler(
-        #    MessageHandler(
-        #        password_handler.func,
-        #        filters = filters.command(COMMAND.PASSWORD)
-        #        )
-        #   )        
+    #if CONFIG.BOT_PASSWORD:
+    #    app.add_handler(
+    #        MessageHandler(
+    #            password_handler.func,
+    #            filters = filters.command(COMMAND.PASSWORD)
+    #            )
+    #       )        
         # take action on unauthorized chat room
-        app.add_handler(
-            MessageHandler(
-                wrong_room_handler.func,
-                #filters = ~filters.chat(chats=lambda msg: not msg.chat.id in STATUS.CHAT_ID)
-                filters=~filters.chat(chats=CONFIG.CHAT_ID)
-            )
+    app.add_handler(
+        MessageHandler(
+            wrong_room_handler.func,
+            #filters = ~filters.chat(chats=lambda msg: not msg.chat.id in STATUS.CHAT_ID)
+            filters=~filters.chat(chats=CONFIG.CHAT_ID)
         )
+    )
     app.run()
     
 if __name__ == "__main__":
