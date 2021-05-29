@@ -58,9 +58,14 @@ async def func(filepath: str, client: Client,  message: Message, delete=False):
         LOGGER.info('62: exclude')
     elif file_ext in video:
         async def upload_fn(chat_id, file, **kwargs):
-            video = ffmpeg.encode(file.path)
-            duration = ffmpeg.get_duration(video)
-            width, height = ffmpeg.get_width_height(video)
+            probe = await ffprobe.func(file.path)
+            duration = int(float(probe["format"]["duration"]))
+            video_stream = next((stream for stream in probe['streams'] if stream['codec_type'] == 'video'), None)
+            width = int(video_stream['width'] if 'width' in video_stream else 0)
+            height = int(video_stream['height'] if 'height' in video_stream else 0)
+            #video = ffmpeg.encode(file.path)
+            #duration = ffmpeg.get_duration(video)
+            #width, height = ffmpeg.get_width_height(video)
            
             await message.edit(
                 LOCAL.GENERATE_THUMBNAIL.format(
