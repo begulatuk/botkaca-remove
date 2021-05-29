@@ -112,10 +112,7 @@ async def func(client : Client, message: Message):
     if await progress_dl(reply, aria2_api, download.gid):
         download = aria2_api.get_download(download.gid)
         if not download.followed_by_ids:
-            download.remove(force=True)                   
-            await asyncio_sleep(1)
-            LOGGER.info(f'uploading :  {download.name}')
-            
+            download.remove(force=True)
             await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         else:
             gids = download.followed_by_ids
@@ -124,7 +121,6 @@ async def func(client : Client, message: Message):
                 if await progress_dl(reply, aria2_api, gid):
                     download = aria2_api.get_download(gid)
                     download.remove(force=True)
-                    await asyncio_sleep(1)
                     await upload_files(client, reply, abs_files(download_dir, download.files), os_path_join(download_dir, download.name + '.zip'))
         try:
             await reply.delete()
@@ -139,7 +135,6 @@ def abs_files(root, files):
 async def upload_files(client, reply, filepaths, zippath):
     if not STATUS.UPLOAD_AS_ZIP:
         for filepath in filepaths:
-            LOGGER.info(f'done : {filepath}')
             await upload_to_tg_handler.func(
                 filepath,
                 client,
@@ -148,7 +143,6 @@ async def upload_files(client, reply, filepaths, zippath):
             )
     else:
         zipfile.func(filepaths, zippath)
-        
         await upload_to_tg_handler.func(
             zippath,
             client,
