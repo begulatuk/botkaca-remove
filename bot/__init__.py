@@ -23,7 +23,8 @@ CONFIG = Config({
     'TORRENT_TRACKER' : '',
     'BAR_SIZE' : 10,
     'THUMBNAIL_NAME' : 'default_thumbnail.jpg',
-    'LOCAL' : 'en'
+    'LOCAL' : 'en',
+    'ARIA_CONF' : ''
 })
 
 # GOAL:
@@ -82,6 +83,7 @@ COMMAND = Config({
     'PASSWORD' : 'pass',
     'HELP' : 'help',
     'LEECH' : 'leech',
+    'RESTART' : 'restart',
     'CANCEL_LEECH' : 'cancel',
     'LEECH_LIST' : 'list',
     'UPLOAD_AS_DOC' : 'upload_as_doc',
@@ -99,5 +101,5 @@ STATUS = type('obj', (object,), {
     'UPLOAD_AS_DOC' : bool(int(CONFIG.UPLOAD_AS_DOC)),
     'UPLOAD_AS_ZIP' : bool(int(CONFIG.UPLOAD_AS_ZIP)),
     'DEFAULT_TRACKER' : CONFIG.TORRENT_TRACKER.split(','),
-    'CHAT_ID' : CONFIG.CHAT_ID.split(',')
+    'CHAT_ID' : CONFIG.CHAT_ID.split()
 })

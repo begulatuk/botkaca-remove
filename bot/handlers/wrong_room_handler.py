@@ -1,7 +1,8 @@
-from pyrogram import Client
+from pyrogram import Client, filters 
 from pyrogram.types import Message
-from bot import LOCAL, CONFIG
+from bot import LOCAL, CONFIG, STATUS
 
+@Client.on_message(filters.text & ~filters.chat(chats=STATUS.CHAT_ID))
 async def func(client : Client, message: Message):
     if message.chat.type == "private":
         try:

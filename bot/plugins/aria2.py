@@ -7,9 +7,10 @@ LOGGER = logging.getLogger(__name__)
 
 # GOAL:
 # create aria2 handler class
-
+import os
 import asyncio
 import aria2p
+from bot import CONFIG
 
 class aria2(aria2p.API):
     __api =  None
@@ -37,6 +38,11 @@ class aria2(aria2p.API):
             ]
             for key in self.__config:
                 cmd.append(f"--{key}={self.__config[key]}")
+            if not os.path.exists("epic.conf"):
+                with open("epic.conf", "w+", newline="\n", encoding="utf-8") as f:
+                    f.write(CONFIG.ARIA_CONF)
+                    cmd.append("--conf-path=epic.conf")
+                    f.close()
             LOGGER.info(cmd)
             self.__process = await asyncio.create_subprocess_exec(
                 *cmd,
